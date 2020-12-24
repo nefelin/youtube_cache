@@ -18,6 +18,7 @@ export const routeYoutubeSearch = (req, res) => {
       return res.status(200).json(resultJSON);
     } else {
       youtubeSearchList(query).then(items => {
+        //fixme me handle failed response better, right now still writes to cache
         console.log("retrieved from youtube proper");
         redisClient.set(youtubeRedisLabel(query), JSON.stringify(items));
         return res.status(200).json(items);
